@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>智能感应小夜灯 - 项目方案</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+    background: #1e1e2e;
+    color: #cdd6f4;
+    line-height: 1.7;
+    padding: 30px 20px;
+  }
+  .container { max-width: 1000px; margin: 0 auto; }
+  
+  /* 标题 */
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #f9e2af;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #6c7086;
+    font-size: 14px;
+    margin-bottom: 40px;
+  }
+  
+  /* 区块 */
+  .section {
+    background: #313244;
+    border-radius: 12px;
+    padding: 28px;
+    margin-bottom: 24px;
+    border: 1px solid #45475a;
+  }
+  h2 {
+    color: #89b4fa;
+    font-size: 22px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #45475a;
+  }
+  h3 {
+    color: #a6e3a1;
+    font-size: 17px;
+    margin: 20px 0 12px;
+  }
+  p { margin-bottom: 12px; }
+  
+  /* 特性卡片 */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .feature {
+    background: #181825;
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+    border-left: 3px solid #89b4fa;
+  }
+  .feature .icon { font-size: 28px; margin-bottom: 8px; }
+  .feature .name { color: #cdd6f4; font-weight: bold; font-size: 15px; margin-bottom: 4px; }
+  .feature .desc { color: #6c7086; font-size: 12px; }
+  
+  /* 硬件清单表格 */
+  .bom-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+  }
+  .bom-table th {
+    background: #45475a;
+    color: #f9e2af;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  .bom-table td {
+    padding: 12px;
+    border-bottom: 1px solid #45475a;
+    font-size: 14px;
+  }
+  .bom-table tr:hover { background: #181825; }
+  .price { color: #f9e2af; font-weight: bold; }
+  
+  /* 图片容器 */
+  .image-box {
+    background: #181825;
+    border-radius: 10px;
+    padding: 16px;
+    margin: 16px 0;
+    text-align: center;
+  }
+  .image-box svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .caption {
+    color: #6c7086;
+    font-size: 13px;
+    margin-top: 10px;
+    font-style: italic;
+  }
+  
+  /* 参数卡片 */
+  .params {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .param {
+    background: #181825;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .param .label { color: #6c7086; font-size: 12px; }
+  .param .value { color: #89dceb; font-size: 18px; font-weight: bold; margin-top: 4px; }
+  
+  /* 步骤 */
+  .steps {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .step {
+    flex: 1;
+    min-width: 140px;
+    background: #181825;
+    border-radius: 10px;
+    padding: 16px 12px;
+    text-align: center;
+  }
+  .step .num {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 50%;
+    background: #89b4fa;
+    color: #1e1e2e;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  .step .name { color: #cdd6f4; font-weight: bold; font-size: 14px; margin-bottom: 4px; }
+  .step .desc { color: #6c7086; font-size: 11px; }
+  
+  /* 提示框 */
+  .tip {
+    background: #181825;
+    border-left: 4px solid #f9e2af;
+    padding: 14px 18px;
+    border-radius: 0 8px 8px 0;
+    margin: 14px 0;
+  }
+  .tip.warn { border-left-color: #f38ba8; }
+  .tip strong { color: #f9e2af; }
+  
+  /* 页脚 */
+  .footer {
+    text-align: center;
+    color: #6c7086;
+    font-size: 13px;
+    margin-top: 40px;
+    padding: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>🌙 智能感应小夜灯</h1>
+  <p class="subtitle">基于 ESP32 的人体感应 + 环境光检测自动夜灯 · 3D 打印个性化外壳</p>
+
+  <!-- 项目简介 -->
+  <div class="section">
+    <h2>📖 项目简介</h2>
+    <p>一个会"看天色、认人"的小夜灯：<strong style="color:#f9e2af;">天黑时有人靠近自动亮灯，人离开后延时熄灭</strong>，白天不亮。</p>
+    <div class="features">
+      <div class="feature">
+        <div class="icon">🌙</div>
+        <div class="name">人体感应</div>
+        <div class="desc">HC-SR501 PIR 检测人体移动</div>
+      </div>
+      <div class="feature">
+        <div class="icon">☀️</div>
+        <div class="name">环境光检测</div>
+        <div class="desc">BH1750 测亮度，白天不亮</div>
+      </div>
+      <div class="feature">
+        <div class="icon">🌅</div>
+        <div class="name">平滑渐变</div>
+        <div class="desc">LED 渐亮渐灭，不刺眼</div>
+      </div>
+      <div class="feature">
+        <div class="icon">⏱️</div>
+        <div class="name">延时关闭</div>
+        <div class="desc">无人 30 秒后自动熄灭</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 硬件清单 -->
+  <div class="section">
+    <h2>📦 硬件清单 (BOM)</h2>
+    <table class="bom-table">
+      <thead>
+        <tr>
+          <th>模块</th>
+          <th>数量</th>
+          <th>参考价格</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>⚡ ESP32 开发板</td>
+          <td>1</td>
+          <td class="price">¥ ~25</td>
+          <td>主控，你已经有了</td>
+        </tr>
+        <tr>
+          <td>👤 HC-SR501 人体红外传感器</td>
+          <td>1</td>
+          <td class="price">¥ ~3</td>
+          <td>检测人体移动，感应距离 3-7 米</td>
+        </tr>
+        <tr>
+          <td>☀️ BH1750 光照传感器</td>
+          <td>1</td>
+          <td class="price">¥ ~4</td>
+          <td>I2C 接口，测环境亮度</td>
+        </tr>
+        <tr>
+          <td>💡 暖白光 LED (5mm)</td>
+          <td>1-3 颗</td>
+          <td class="price">¥ ~0.5</td>
+          <td>建议 3000K 暖白</td>
+        </tr>
+        <tr>
+          <td>🔌 220Ω 限流电阻</td>
+          <td>1-3 个</td>
+          <td class="price">¥ ~0.1</td>
+          <td>保护 LED</td>
+        </tr>
+        <tr>
+          <td>🔧 面包板 + 杜邦线</td>
+          <td>若干</td>
+          <td class="price">¥ ~5</td>
+          <td>原型调试用</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="tip">
+      <strong>💡 可选升级：</strong>WS2812B 灯带（可调光调色）· 锂电池 + TP4056 充电板（做成可移动的无线版）
+    </div>
+    <p style="text-align:center;color:#a6e3a1;font-weight:bold;font-size:16px;margin-top:12px;">核心硬件总价：约 ¥38</p>
+  </div>
+
+  <!-- 接线图 -->
+  <div class="section">
+    <h2>🔌 接线图</h2>
+    <div class="image-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="Consolas, 'Microsoft YaHei', monospace">
+        <rect width="900" height="600" fill="#181825"/>
+        <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">智能感应小夜灯 - 接线图</text>
+
+        <!-- ESP32 -->
+        <rect x="340" y="120" width="220" height="380" rx="12" fill="#313244" stroke="#89b4fa" stroke-width="2"/>
+        <text x="450" y="150" text-anchor="middle" fill="#89b4fa" font-size="16" font-weight="bold">ESP32</text>
+        <line x1="360" y1="160" x2="540" y2="160" stroke="#89b4fa" stroke-width="1"/>
+        <text x="355" y="195" text-anchor="end" fill="#a6e3a1" font-size="12">5V</text>
+        <text x="355" y="225" text-anchor="end" fill="#a6e3a1" font-size="12">3.3V</text>
+        <text x="355" y="255" text-anchor="end" fill="#a6e3a1" font-size="12">GND</text>
+        <text x="355" y="315" text-anchor="end" fill="#f9e2af" font-size="12">GPIO13</text>
+        <text x="355" y="385" text-anchor="end" fill="#f9e2af" font-size="12">GPIO21</text>
+        <text x="355" y="415" text-anchor="end" fill="#f9e2af" font-size="12">GPIO22</text>
+        <text x="545" y="255" text-anchor="start" fill="#f38ba8" font-size="12">GPIO2</text>
+        <circle cx="355" cy="190" r="4" fill="#a6e3a1"/>
+        <circle cx="355" cy="220" r="4" fill="#a6e3a1"/>
+        <circle cx="355" cy="250" r="4" fill="#a6e3a1"/>
+        <circle cx="355" cy="310" r="4" fill="#f9e2af"/>
+        <circle cx="355" cy="380" r="4" fill="#f9e2af"/>
+        <circle cx="355" cy="410" r="4" fill="#f9e2af"/>
+        <circle cx="545" cy="250" r="4" fill="#f38ba8"/>
+
+        <!-- PIR -->
+        <rect x="60" y="100" width="180" height="140" rx="8" fill="#313244" stroke="#f9e2af" stroke-width="2"/>
+        <text x="150" y="125" text-anchor="middle" fill="#f9e2af" font-size="14" font-weight="bold">HC-SR501</text>
+        <text x="150" y="145" text-anchor="middle" fill="#bac2de" font-size="11">人体红外传感器</text>
+        <circle cx="150" cy="180" r="22" fill="#181825" stroke="#f9e2af" stroke-width="1.5"/>
+        <circle cx="150" cy="180" r="16" fill="#f9e2af" opacity="0.3"/>
+        <text x="90" y="230" text-anchor="middle" fill="#a6e3a1" font-size="11">VCC</text>
+        <text x="150" y="230" text-anchor="middle" fill="#a6e3a1" font-size="11">OUT</text>
+        <text x="210" y="230" text-anchor="middle" fill="#a6e3a1" font-size="11">GND</text>
+        <circle cx="90" cy="215" r="3" fill="#a6e3a1"/>
+        <circle cx="150" cy="215" r="3" fill="#a6e3a1"/>
+        <circle cx="210" cy="215" r="3" fill="#a6e3a1"/>
+
+        <!-- BH1750 -->
+        <rect x="60" y="300" width="180" height="140" rx="8" fill="#313244" stroke="#89dceb" stroke-width="2"/>
+        <text x="150" y="325" text-anchor="middle" fill="#89dceb" font-size="14" font-weight="bold">BH1750</text>
+        <text x="150" y="345" text-anchor="middle" fill="#bac2de" font-size="11">光照传感器 (I2C)</text>
+        <rect x="120" y="360" width="60" height="30" rx="3" fill="#181825" stroke="#89dceb" stroke-width="1"/>
+        <text x="85" y="430" text-anchor="middle" fill="#a6e3a1" font-size="11">VCC</text>
+        <text x="115" y="430" text-anchor="middle" fill="#a6e3a1" font-size="11">GND</text>
+        <text x="155" y="430" text-anchor="middle" fill="#a6e3a1" font-size="11">SDA</text>
+        <text x="205" y="430" text-anchor="middle" fill="#a6e3a1" font-size="11">SCL</text>
+        <circle cx="85" cy="415" r="3" fill="#a6e3a1"/>
+        <circle cx="115" cy="415" r="3" fill="#a6e3a1"/>
+        <circle cx="155" cy="415" r="3" fill="#a6e3a1"/>
+        <circle cx="205" cy="415" r="3" fill="#a6e3a1"/>
+
+        <!-- LED -->
+        <rect x="660" y="200" width="160" height="120" rx="8" fill="#313244" stroke="#f38ba8" stroke-width="2"/>
+        <text x="740" y="225" text-anchor="middle" fill="#f38ba8" font-size="14" font-weight="bold">暖白 LED</text>
+        <text x="740" y="242" text-anchor="middle" fill="#bac2de" font-size="11">+ 220Ω 限流电阻</text>
+        <circle cx="740" cy="275" r="12" fill="#f38ba8" opacity="0.4" stroke="#f38ba8" stroke-width="1.5"/>
+        <line x1="740" y1="263" x2="740" y2="287" stroke="#181825" stroke-width="2"/>
+        <line x1="728" y1="275" x2="752" y2="275" stroke="#181825" stroke-width="2"/>
+        <text x="700" y="315" text-anchor="middle" fill="#a6e3a1" font-size="11">+ (信号)</text>
+        <text x="780" y="315" text-anchor="middle" fill="#a6e3a1" font-size="11">GND</text>
+        <circle cx="700" cy="305" r="3" fill="#a6e3a1"/>
+        <circle cx="780" cy="305" r="3" fill="#a6e3a1"/>
+
+        <!-- 连线 -->
+        <path d="M 90 215 L 90 170 L 355 170 L 355 190" stroke="#a6e3a1" stroke-width="2" fill="none"/>
+        <path d="M 210 215 L 210 260 L 355 260 L 355 250" stroke="#a6e3a1" stroke-width="2" fill="none"/>
+        <path d="M 150 215 L 150 300 L 355 300 L 355 310" stroke="#f9e2af" stroke-width="2" fill="none"/>
+        <path d="M 85 415 L 85 200 L 355 200 L 355 220" stroke="#a6e3a1" stroke-width="2" fill="none"/>
+        <path d="M 115 415 L 115 250 L 355 250" stroke="#a6e3a1" stroke-width="2" fill="none"/>
+        <path d="M 155 415 L 155 380 L 355 380" stroke="#f9e2af" stroke-width="2" fill="none"/>
+        <path d="M 205 415 L 205 410 L 355 410" stroke="#f9e2af" stroke-width="2" fill="none"/>
+        <path d="M 545 250 L 600 250 L 600 305 L 700 305" stroke="#f38ba8" stroke-width="2" fill="none"/>
+        <path d="M 780 305 L 820 305 L 820 250 L 545 250" stroke="#a6e3a1" stroke-width="2" fill="none" stroke-dasharray="6,4"/>
+
+        <!-- 图例 -->
+        <rect x="60" y="480" width="780" height="90" rx="8" fill="#181825" stroke="#45475a" stroke-width="1"/>
+        <text x="75" y="505" fill="#cdd6f4" font-size="13" font-weight="bold">图例说明</text>
+        <line x1="75" y1="520" x2="105" y2="520" stroke="#a6e3a1" stroke-width="2"/>
+        <text x="115" y="524" fill="#bac2de" font-size="11">电源线 (VCC/GND)</text>
+        <line x1="260" y1="520" x2="290" y2="520" stroke="#f9e2af" stroke-width="2"/>
+        <text x="300" y="524" fill="#bac2de" font-size="11">信号线 (GPIO/I2C)</text>
+        <line x1="450" y1="520" x2="480" y2="520" stroke="#f38ba8" stroke-width="2"/>
+        <text x="490" y="524" fill="#bac2de" font-size="11">LED 控制线</text>
+        <line x1="600" y1="520" x2="630" y2="520" stroke="#a6e3a1" stroke-width="2" stroke-dasharray="6,4"/>
+        <text x="640" y="524" fill="#bac2de" font-size="11">共地线</text>
+        <text x="75" y="550" fill="#6c7086" font-size="11">⚠ PIR 接 5V；BH1750 接 3.3V；所有模块 GND 必须共地</text>
+      </svg>
+    </div>
+    <div class="tip warn">
+      <strong>⚠️ 注意：</strong>PIR 的 VCC 接 5V；BH1750 的 VCC 接 3.3V；所有模块 GND 必须连在一起（共地）。
+    </div>
+  </div>
+
+  <!-- 工作逻辑 -->
+  <div class="section">
+    <h2>🧠 工作逻辑</h2>
+    <p>简单来说：<strong style="color:#a6e3a1;">天黑 + 有人 → 亮灯；人走 30 秒 → 熄灯；白天 → 一直不亮</strong>。</p>
+    <div class="image-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" font-family="Consolas, 'Microsoft YaHei', monospace">
+        <rect width="800" height="560" fill="#181825"/>
+        <text x="400" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">状态机流程图</text>
+        <defs>
+          <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#bac2de"/></marker>
+          <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#a6e3a1"/></marker>
+          <marker id="arrowR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#f38ba8"/></marker>
+        </defs>
+        <ellipse cx="400" cy="80" rx="80" ry="30" fill="#313244" stroke="#89b4fa" stroke-width="2"/>
+        <text x="400" y="86" text-anchor="middle" fill="#89b4fa" font-size="15" font-weight="bold">系统启动</text>
+        <rect x="300" y="140" width="200" height="70" rx="12" fill="#313244" stroke="#6c7086" stroke-width="2"/>
+        <text x="400" y="170" text-anchor="middle" fill="#cdd6f4" font-size="14" font-weight="bold">待机状态</text>
+        <text x="400" y="190" text-anchor="middle" fill="#6c7086" font-size="11">LED 关闭 · 监测环境</text>
+        <polygon points="400,260 500,310 400,360 300,310" fill="#313244" stroke="#f9e2af" stroke-width="2"/>
+        <text x="400" y="305" text-anchor="middle" fill="#f9e2af" font-size="13" font-weight="bold">环境</text>
+        <text x="400" y="325" text-anchor="middle" fill="#f9e2af" font-size="13" font-weight="bold">是否黑暗?</text>
+        <polygon points="400,410 500,460 400,510 300,460" fill="#313244" stroke="#f9e2af" stroke-width="2"/>
+        <text x="400" y="455" text-anchor="middle" fill="#f9e2af" font-size="13" font-weight="bold">检测到</text>
+        <text x="400" y="475" text-anchor="middle" fill="#f9e2af" font-size="13" font-weight="bold">人体?</text>
+        <rect x="560" y="380" width="180" height="70" rx="12" fill="#313244" stroke="#a6e3a1" stroke-width="2"/>
+        <text x="650" y="410" text-anchor="middle" fill="#a6e3a1" font-size="14" font-weight="bold">亮灯状态</text>
+        <text x="650" y="430" text-anchor="middle" fill="#6c7086" font-size="11">LED 渐亮至 100%</text>
+        <rect x="540" y="490" width="220" height="50" rx="10" fill="#181825" stroke="#6c7086" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <text x="650" y="512" text-anchor="middle" fill="#bac2de" font-size="11">30秒内无人体移动?</text>
+        <text x="650" y="528" text-anchor="middle" fill="#6c7086" font-size="10">或 环境变亮?</text>
+        <line x1="400" y1="110" x2="400" y2="140" stroke="#bac2de" stroke-width="2" marker-end="url(#arrow)"/>
+        <line x1="400" y1="210" x2="400" y2="260" stroke="#bac2de" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M 300 310 L 200 310 L 200 175 L 300 175" stroke="#f38ba8" stroke-width="2" fill="none" marker-end="url(#arrowR)"/>
+        <text x="210" y="240" fill="#f38ba8" font-size="12">否 (环境亮)</text>
+        <line x1="400" y1="360" x2="400" y2="410" stroke="#a6e3a1" stroke-width="2" marker-end="url(#arrowG)"/>
+        <text x="410" y="390" fill="#a6e3a1" font-size="12">是</text>
+        <path d="M 300 460 L 150 460 L 150 175 L 300 175" stroke="#f38ba8" stroke-width="2" fill="none" marker-end="url(#arrowR)"/>
+        <text x="160" y="320" fill="#f38ba8" font-size="12">否 (无人)</text>
+        <line x1="500" y1="460" x2="560" y2="415" stroke="#a6e3a1" stroke-width="2" marker-end="url(#arrowG)"/>
+        <text x="510" y="440" fill="#a6e3a1" font-size="12">是</text>
+        <line x1="650" y1="450" x2="650" y2="490" stroke="#bac2de" stroke-width="2" marker-end="url(#arrow)"/>
+        <path d="M 760 515 L 780 515 L 780 100 L 480 100 L 480 175" stroke="#f38ba8" stroke-width="2" fill="none" marker-end="url(#arrowR)"/>
+        <text x="700" y="95" text-anchor="middle" fill="#f38ba8" font-size="12">是 → 关灯</text>
+        <path d="M 540 515 L 520 515 L 520 415 L 560 415" stroke="#a6e3a1" stroke-width="2" fill="none" marker-end="url(#arrowG)"/>
+        <text x="505" y="470" fill="#a6e3a1" font-size="11">否 → 保持亮灯</text>
+      </svg>
+    </div>
+    <h3>关键参数</h3>
+    <div class="params">
+      <div class="param"><div class="label">亮度阈值</div><div class="value">50 lux</div></div>
+      <div class="param"><div class="label">亮灯延时</div><div class="value">30 秒</div></div>
+      <div class="param"><div class="label">渐变步长</div><div class="value">5 / 10ms</div></div>
+    </div>
+  </div>
+
+  <!-- 3D 结构 -->
+  <div class="section">
+    <h2>🖨️ 3D 结构设计</h2>
+    <div class="image-box">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 650" font-family="Consolas, 'Microsoft YaHei', monospace">
+        <rect width="900" height="650" fill="#181825"/>
+        <text x="450" y="35" text-anchor="middle" fill="#cdd6f4" font-size="20" font-weight="bold">3D 结构示意图 - 弯月造型小夜灯</text>
+        <text x="200" y="70" text-anchor="middle" fill="#89b4fa" font-size="15" font-weight="bold">整体外观</text>
+        <path d="M 120 380 A 120 120 0 0 1 280 260 A 90 90 0 0 0 150 360 Z" fill="#f9e2af" opacity="0.85" stroke="#f5c2e7" stroke-width="2"/>
+        <path d="M 140 370 A 100 100 0 0 1 265 275 A 75 75 0 0 0 160 355 Z" fill="#f5c2e7" opacity="0.5"/>
+        <ellipse cx="200" cy="400" rx="110" ry="18" fill="#45475a" stroke="#6c7086" stroke-width="1.5"/>
+        <rect x="90" y="400" width="220" height="25" fill="#313244" stroke="#6c7086" stroke-width="1.5"/>
+        <ellipse cx="200" cy="425" rx="110" ry="14" fill="#181825" stroke="#6c7086" stroke-width="1.5"/>
+        <g opacity="0.4">
+          <line x1="150" y1="300" x2="120" y2="270" stroke="#f9e2af" stroke-width="2"/>
+          <line x1="170" y1="280" x2="145" y2="245" stroke="#f9e2af" stroke-width="2"/>
+          <line x1="200" y1="265" x2="185" y2="225" stroke="#f9e2af" stroke-width="2"/>
+          <line x1="230" y1="275" x2="225" y2="235" stroke="#f9e2af" stroke-width="2"/>
+        </g>
+        <line x1="120" y1="320" x2="50" y2="320" stroke="#89dceb" stroke-width="1" stroke-dasharray="3,3"/>
+        <circle cx="120" cy="320" r="3" fill="#89dceb"/>
+        <text x="45" y="315" text-anchor="end" fill="#89dceb" font-size="11">PIR 传感器</text>
+        <text x="45" y="330" text-anchor="end" fill="#6c7086" font-size="10">(外露开孔)</text>
+        <line x1="230" y1="285" x2="320" y2="250" stroke="#f9e2af" stroke-width="1" stroke-dasharray="3,3"/>
+        <circle cx="230" cy="285" r="3" fill="#f9e2af"/>
+        <text x="325" y="248" fill="#f9e2af" font-size="11">LED 发光区</text>
+        <text x="325" y="263" fill="#6c7086" font-size="10">(透光外罩)</text>
+        <line x1="290" y1="415" x2="340" y2="415" stroke="#bac2de" stroke-width="1" stroke-dasharray="3,3"/>
+        <circle cx="290" cy="415" r="3" fill="#bac2de"/>
+        <text x="345" y="413" fill="#bac2de" font-size="11">底座</text>
+        <text x="345" y="428" fill="#6c7086" font-size="10">(含 ESP32 + 电池)</text>
+        <text x="700" y="70" text-anchor="middle" fill="#89b4fa" font-size="15" font-weight="bold">分层爆炸图</text>
+        <path d="M 600 110 A 100 100 0 0 1 800 110 L 780 130 A 80 80 0 0 0 620 130 Z" fill="#f9e2af" opacity="0.6" stroke="#f5c2e7" stroke-width="1.5"/>
+        <text x="700" y="125" text-anchor="middle" fill="#181825" font-size="11" font-weight="bold">① 透光外罩</text>
+        <text x="700" y="145" text-anchor="middle" fill="#6c7086" font-size="10">半透明 PLA / 树脂</text>
+        <rect x="620" y="175" width="160" height="35" rx="5" fill="#313244" stroke="#f38ba8" stroke-width="1.5"/>
+        <circle cx="655" cy="192" r="6" fill="#f38ba8" opacity="0.7"/>
+        <circle cx="700" cy="192" r="6" fill="#f38ba8" opacity="0.7"/>
+        <circle cx="745" cy="192" r="6" fill="#f38ba8" opacity="0.7"/>
+        <text x="700" y="200" text-anchor="middle" fill="#f38ba8" font-size="10" font-weight="bold">② LED 灯板 (3x 暖白LED)</text>
+        <rect x="610" y="235" width="180" height="55" rx="5" fill="#313244" stroke="#89dceb" stroke-width="1.5"/>
+        <circle cx="650" cy="262" r="12" fill="#181825" stroke="#f9e2af" stroke-width="1.5"/>
+        <text x="650" y="280" text-anchor="middle" fill="#f9e2af" font-size="9">PIR</text>
+        <rect x="710" y="252" width="40" height="20" rx="2" fill="#181825" stroke="#89dceb" stroke-width="1.5"/>
+        <text x="730" y="280" text-anchor="middle" fill="#89dceb" font-size="9">BH1750</text>
+        <text x="790" y="266" fill="#f9e2af" font-size="10">③ 传感器层</text>
+        <rect x="610" y="315" width="180" height="65" rx="5" fill="#313244" stroke="#89b4fa" stroke-width="1.5"/>
+        <rect x="625" y="325" width="70" height="45" rx="3" fill="#181825" stroke="#89b4fa" stroke-width="1"/>
+        <text x="660" y="352" text-anchor="middle" fill="#89b4fa" font-size="10" font-weight="bold">ESP32</text>
+        <rect x="710" y="325" width="70" height="45" rx="3" fill="#181825" stroke="#a6e3a1" stroke-width="1"/>
+        <text x="745" y="345" text-anchor="middle" fill="#a6e3a1" font-size="10">锂电池</text>
+        <text x="745" y="360" text-anchor="middle" fill="#6c7086" font-size="9">+ 充电板</text>
+        <text x="790" y="352" fill="#89b4fa" font-size="10">④ 主控电源层</text>
+        <rect x="600" y="405" width="200" height="30" rx="8" fill="#45475a" stroke="#6c7086" stroke-width="1.5"/>
+        <circle cx="700" cy="420" r="6" fill="#181825" stroke="#f9e2af" stroke-width="1.5"/>
+        <text x="715" y="424" fill="#6c7086" font-size="10">Type-C 充电口</text>
+        <text x="700" y="455" text-anchor="middle" fill="#6c7086" font-size="10">⑤ 底座外壳</text>
+      </svg>
+    </div>
+    <h3>设计要点</h3>
+    <div class="tip"><strong>💡 透光外罩：</strong>使用半透明材料（PLA/树脂）或磨砂处理，让光线均匀漫射</div>
+    <div class="tip"><strong>👤 传感器开孔：</strong>PIR 的菲涅尔透镜<strong style="color:#f38ba8;">必须外露</strong>，不能被外壳挡住；BH1750 也要开窗接收环境光</div>
+    <div class="tip"><strong>🏠 底座结构：</strong>预留 ESP32 + 电池仓 + Type-C 充电口，建议卡扣或磁吸开合</div>
+    <div class="tip"><strong>✨ 造型建议：</strong>弯月 / 猫咪 / 星星，按你喜好自由发挥！</div>
+  </div>
+
+  <!-- 制作步骤 -->
+  <div class="section">
+    <h2>🛠️ 制作步骤</h2>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><div class="name">购买硬件</div><div class="desc">按清单买齐模块</div></div>
+      <div class="step"><div class="num" style="background:#f9e2af;">2</div><div class="name">接线</div><div class="desc">按接线图连接</div></div>
+      <div class="step"><div class="num" style="background:#89dceb;">3</div><div class="name">烧录程序</div><div class="desc">Arduino IDE 上传</div></div>
+      <div class="step"><div class="num" style="background:#f38ba8;">4</div><div class="name">3D 打印</div><div class="desc">建模打印外壳</div></div>
+      <div class="step"><div class="num" style="background:#a6e3a1;">5</div><div class="name">调试完成</div><div class="desc">调整参数测试</div></div>
+    </div>
+
+    <h3>调试小技巧</h3>
+    <div class="tip"><strong>✓ 测 PIR：</strong>手在传感器前晃动，看灯是否亮</div>
+    <div class="tip"><strong>✓ 测光照：</strong>用手遮住光感器，灯才会亮</div>
+    <div class="tip"><strong>✓ 调延时：</strong>拧 PIR 上的橙色旋钮（控制亮灯时长）</div>
+    <div class="tip"><strong>✓ 调灵敏度：</strong>拧 PIR 上的蓝色旋钮（控制感应距离）</div>
+  </div>
+
+  <!-- 常见问题 -->
+  <div class="section">
+    <h2>❓ 常见问题</h2>
+    <table class="bom-table">
+      <thead>
+        <tr><th>问题</th><th>可能原因</th><th>解决方法</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>灯一直不亮</td><td>BH1750 被遮挡 / 阈值太低</td><td>检查传感器开孔，调高亮度阈值</td></tr>
+        <tr><td>灯一直亮</td><td>PIR 延时电位器调太大</td><td>调小 HC-SR501 上的延时旋钮</td></tr>
+        <tr><td>灯闪烁</td><td>PIR 刚上电不稳定</td><td>等待 30-60 秒让传感器稳定</td></tr>
+        <tr><td>白天也亮</td><td>BH1750 接反/损坏</td><td>检查 I2C 接线和地址</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer">
+    🌙 智能感应小夜灯 · Happy Making! 🛠️
+  </div>
+
+</div>
+</body>
+</html>
