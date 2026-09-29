@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张思宇 | 个人主页</title>
+    <meta name="description" content="张思宇的个人主页 - 河北工程大学大一学生">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">ZSY<span>.</span></a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">首页</a></li>
+                <li><a href="#about" class="nav-link">关于我</a></li>
+                <li><a href="#skills" class="nav-link">技能</a></li>
+                <li><a href="#projects" class="nav-link">项目</a></li>
+                <li><a href="#campus" class="nav-link">校园生活</a></li>
+                <li><a href="#contact" class="nav-link">联系我</a></li>
+            </ul>
+            <button class="nav-toggle" id="navToggle" aria-label="切换菜单">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 首页 Hero -->
+    <section class="hero" id="home">
+        <canvas id="particleCanvas"></canvas>
+        <div class="hero-content">
+            <p class="hero-greeting">你好，我是</p>
+            <h1 class="hero-name">张思宇</h1>
+            <div class="hero-typed-wrapper">
+                <span class="hero-typed" id="typedText"></span>
+                <span class="typed-cursor">|</span>
+            </div>
+            <p class="hero-desc">
+                河北工程大学 · 大一新生<br>
+                对世界保持好奇，在代码与书本之间探索未来
+            </p>
+            <div class="hero-btns">
+                <a href="#about" class="btn btn-primary">了解我</a>
+                <a href="#contact" class="btn btn-outline">联系我</a>
+            </div>
+        </div>
+        <a href="#about" class="scroll-down" aria-label="向下滚动">
+            <span class="mouse"><span class="wheel"></span></span>
+        </a>
+    </section>
+
+    <!-- 关于我 -->
+    <section class="section about" id="about">
+        <div class="container">
+            <h2 class="section-title"><span class="title-num">01</span>关于我</h2>
+            <div class="about-grid">
+                <div class="about-img reveal">
+                    <img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=young%20chinese%20female%20college%20student%20portrait%2C%20friendly%20smile%2C%20casual%20hoodie%2C%20university%20campus%20background%2C%20soft%20natural%20lighting%2C%20photorealistic%2C%20warm%20tones&image_size=square" alt="张思宇的照片" loading="lazy">
+                    <div class="about-img-frame"></div>
+                </div>
+                <div class="about-text reveal">
+                    <p class="about-lead">
+                        我是张思宇，河北工程大学的一名大一学生，正在度过人生中最新鲜的一段时光。
+                    </p>
+                    <p>
+                        2026 年秋天，我带着对大学的憧憬来到河北工程大学。这里有浓厚的工科氛围，
+                        也有无限的可能性。我正在努力适应从高中生到大学生的转变——学会自主学习、
+                        时间管理，也在探索自己真正热爱的方向。
+                    </p>
+                    <p>
+                        课余时间我喜欢折腾电脑和编程，这个主页就是我自己动手做的第一个作品。
+                        我相信：<strong>行动是治愈迷茫最好的良药</strong>。
+                    </p>
+                    <ul class="about-facts">
+                        <li><span class="fact-label">姓名</span><span>张思宇</span></li>
+                        <li><span class="fact-label">学校</span><span>河北工程大学</span></li>
+                        <li><span class="fact-label">年级</span><span>大一（2026 级）</span></li>
+                        <li><span class="fact-label">坐标</span><span>河北 · 邯郸</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 技能 -->
+    <section class="section skills" id="skills">
+        <div class="container">
+            <h2 class="section-title"><span class="title-num">02</span>技能树</h2>
+            <p class="section-sub">正在成长中的技能，每一点进步都值得记录</p>
+            <div class="skills-grid">
+                <div class="skill-card reveal">
+                    <div class="skill-icon">💻</div>
+                    <h3>编程入门</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="45" style="--p:45%"></div></div>
+                    <p class="skill-desc">正在学习 HTML / CSS / JavaScript，这个主页就是练手作品</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">📐</div>
+                    <h3>高等数学</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="60" style="--p:60%"></div></div>
+                    <p class="skill-desc">工科基础课，在极限与积分中锻炼思维</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🗣️</div>
+                    <h3>英语</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="55" style="--p:55%"></div></div>
+                    <p class="skill-desc">备战四级中，每天背单词、练听力</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">💃</div>
+                    <h3>舞蹈</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="75" style="--p:75%"></div></div>
+                    <p class="skill-desc">最喜欢随音乐起舞，练舞房里挥洒汗水最快乐</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">📷</div>
+                    <h3>摄影</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="40" style="--p:40%"></div></div>
+                    <p class="skill-desc">喜欢用手机记录校园的四季与日常</p>
+                </div>
+                <div class="skill-card reveal">
+                    <div class="skill-icon">🎵</div>
+                    <h3>音乐</h3>
+                    <div class="skill-bar"><div class="skill-progress" data-progress="60" style="--p:60%"></div></div>
+                    <p class="skill-desc">喜欢有节奏感的音乐，是跳舞时的最佳搭档</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目实践 -->
+    <section class="section projects" id="projects">
+        <div class="container">
+            <h2 class="section-title"><span class="title-num">03</span>项目实践</h2>
+            <p class="section-sub">把课堂上学到的东西，真正动手做出来</p>
+            <div class="projects-grid">
+                <div class="project-card reveal">
+                    <div class="project-head">
+                        <span class="project-tag">数据竞赛</span>
+                        <span class="project-date">2026.09</span>
+                    </div>
+                    <h3>余额宝资金流入流出预测</h3>
+                    <p class="project-desc">
+                        基于真实交易数据，分析 2.8 万用户 427 天的申购与赎回行为。
+                        设计了 5 种预测方案并通过"模拟考试"回测选出最优模型，
+                        完成 2014 年 9 月每日申购 / 赎回总额的预测与报告撰写。
+                    </p>
+                    <ul class="project-points">
+                        <li>数据清洗与聚合：处理 157MB 交易明细，按日汇总申购赎回总额</li>
+                        <li>多方案对比：星期平均 / 滑动平均 / 中位数 / 趋势因子等 5 种模型回测</li>
+                        <li>结果输出：生成 30 天预测提交文件与可视化分析报告</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>Python</span><span>数据分析</span><span>时间序列</span><span>可视化</span>
+                    </div>
+                    <div class="project-links">
+                        <a class="btn btn-outline btn-sm" href="report.html" target="_blank" rel="noopener">查看报告</a>
+                        <a class="btn btn-outline btn-sm" href="submission.csv" target="_blank" rel="noopener">下载提交结果</a>
+                    </div>
+                </div>
+
+                <!-- 智能感应小夜灯 -->
+                <div class="project-card reveal">
+                    <div class="project-head">
+                        <span class="project-tag">硬件制作</span>
+                        <span class="project-date">2026.09</span>
+                    </div>
+                    <h3>🌙 智能感应小夜灯</h3>
+                    <p class="project-desc">
+                        基于 ESP32 的人体感应 + 环境光检测自动夜灯。天黑时有人靠近自动亮灯，
+                        人离开后延时熄灭，白天不亮灯。3D 打印个性化外壳，放在宿舍床边起夜不摸黑。
+                    </p>
+                    <ul class="project-points">
+                        <li>双传感检测：HC-SR501 人体红外 + BH1750 光照传感器</li>
+                        <li>平滑调光：LED 渐亮渐灭，不刺眼</li>
+                        <li>3D 打印外壳：弯月造型，五层结构设计</li>
+                    </ul>
+                    <div class="project-tech">
+                        <span>ESP32</span><span>Arduino</span><span>传感器</span><span>3D 打印</span>
+                    </div>
+                    <div class="project-links">
+                        <a class="btn btn-outline btn-sm" href="smart_night_light.html" target="_blank" rel="noopener">查看方案</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 校园生活 -->
+    <section class="section campus" id="campus">
+        <div class="container">
+            <h2 class="section-title"><span class="title-num">04</span>校园生活</h2>
+            <p class="section-sub">在河北工程大学的日子</p>
+            <div class="timeline">
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026.09</div>
+                    <div class="timeline-content">
+                        <h3>入学报到</h3>
+                        <p>拖着行李箱走进校门，正式成为一名大学生。第一次离开家，既兴奋又有点紧张。</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026.09</div>
+                    <div class="timeline-content">
+                        <h3>军训时光</h3>
+                        <p>烈日下站军姿、踢正步，晒黑了一圈，也迅速和同学们打成了一片。</p>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026.09</div>
+                    <div class="timeline-content">
+                        <h3>迎新晚会</h3>
+                        <p>"青衿赴梦 · 万象启章"——学校的 2026 年迎新晚会超震撼！璀璨的灯光、热闹的舞台，还有全场一起挥舞的荧光棒，是大学送给我的第一份浪漫。</p>
+                        <div class="timeline-photos">
+                            <figure class="timeline-photo">
+                                <a href="微信图片_20260925122659_190_34.jpg" target="_blank" rel="noopener">
+                                    <img src="微信图片_20260925122659_190_34.jpg" alt="河北工程大学2026年迎新晚会现场，舞台灯光璀璨" loading="lazy" decoding="async">
+                                </a>
+                                <figcaption>迎新晚会现场，灯光交织成星海</figcaption>
+                            </figure>
+                            <figure class="timeline-photo">
+                                <a href="微信图片_20260925122700_191_34.jpg" target="_blank" rel="noopener">
+                                    <img src="微信图片_20260925122700_191_34.jpg" alt="同学们手中印有晚会主题的彩色荧光棒" loading="lazy" decoding="async">
+                                </a>
+                                <figcaption>印着晚会主题的应援荧光棒</figcaption>
+                            </figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">2026.10</div>
+                    <div class="timeline-content">
+                        <h3>社团招新</h3>
+                        <p>在"百团大战"中逛了一下午，报名了计算机协会和舞蹈社。宣讲会上学长学姐正在介绍社团的组织架构，听得我对社团生活充满期待。</p>
+                        <figure class="timeline-photo timeline-photo-single">
+                            <a href="微信图片_20260925122702_193_34.jpg" target="_blank" rel="noopener">
+                                <img src="微信图片_20260925122702_193_34.jpg" alt="社团宣讲会上大屏幕展示组织架构" loading="lazy" decoding="async">
+                            </a>
+                            <figcaption>社团宣讲会：组织架构介绍中</figcaption>
+                        </figure>
+                    </div>
+                </div>
+                <div class="timeline-item reveal">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">至今</div>
+                    <div class="timeline-content">
+                        <h3>持续探索中</h3>
+                        <p>上课、泡图书馆、写代码、练舞……大一的每一天都过得充实而新鲜，当然也少不了和朋友们一起"诗兴大发"的整活时刻。</p>
+                        <figure class="timeline-photo timeline-photo-single">
+                            <a href="微信图片_20260925122742_196_34.jpg" target="_blank" rel="noopener">
+                                <img src="微信图片_20260925122742_196_34.jpg" alt="古风李白饮酒造型的搞怪贴纸自拍" loading="lazy" decoding="async">
+                            </a>
+                            <figcaption>学习之余快乐整活，李白看了都点头</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我 -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title"><span class="title-num">05</span>联系我</h2>
+            <p class="section-sub">欢迎交流学习、舞蹈或者任何有趣的话题</p>
+            <div class="contact-cards">
+                <a class="contact-card reveal" href="mailto:zhangsiyu@example.com">
+                    <div class="contact-icon">✉️</div>
+                    <h3>邮箱</h3>
+                    <p>zhangsiyu@example.com</p>
+                </a>
+                <div class="contact-card reveal">
+                    <div class="contact-icon">🏫</div>
+                    <h3>学校</h3>
+                    <p>河北工程大学</p>
+                </div>
+                <div class="contact-card reveal">
+                    <div class="contact-icon">📍</div>
+                    <h3>位置</h3>
+                    <p>河北省邯郸市</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 张思宇 · 用 ❤️ 与代码构建</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
